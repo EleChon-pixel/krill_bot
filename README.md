@@ -1,17 +1,23 @@
-# krill_bot
+# krill_bot 🐡
 
-A Violentmonkey helper for Krillion Puffer Party: historical answer lookup, local word matching, optional Qwen3 suggestions, and live answer tracking. **You submit every answer manually.**
+A cheat for Krillion Puffer Party. The fish brought an 8B model to a trivia game.
+
+It digs through historical answers, checks a word list, and asks a local AI when your brain has left the aquarium. A Violentmonkey userscript with a deeply unnecessary amount of engineering behind it.
+
+**You still submit every answer manually.** We had to leave one skill check.
 
 ## Features
 
-- Historical examples from a public Daily Dive dataset, visited guide pages, and answers you save manually.
-- Local word suggestions for recognized prefix, suffix, containment and numeric-length rules.
-- Optional local Ollama generation with `qwen3:8b`; no cloud model required.
-- Party snapshot/patch tracking, submit acknowledgements and category-aware accepted/rejected states.
-- Dark panel with tier colours, readable state chips and feed diagnostics.
-- Click or use **Alt+1–5** to fill the answer input. Filling never submits.
+- **Fish with receipts.** Historical examples from a public Daily Dive dataset, visited guide pages, and answers you save manually.
+- **Spelling outsourced.** Local word suggestions for recognized prefix, suffix, containment and numeric-length rules.
+- **A GPU-powered brain cell.** Optional local Ollama generation with `qwen3:8b`; no cloud model required.
+- **Remembers what you don't.** Tracks accepted, pending and rejected answers across Party category changes.
+- **Cheating, but make it legible.** Dark panel, tier colours, readable state chips and feed diagnostics.
+- **Five buttons between you and looking suspiciously knowledgeable.** Click or use **Alt+1–5** to fill the input. Filling never submits.
 
-Historical scores are not predictions of the current Party score. Dictionary and model suggestions may be rejected by the game. This is an independent project, unaffiliated with Krillion or Violentmonkey.
+Historical scores are not predictions of the current Party score. Dictionary and model suggestions may be rejected by the game. Qwen can be confidently wrong; now you can experience that underwater.
+
+Independent project. Unaffiliated with Krillion or Violentmonkey. Please don't make the fish answer support emails about this.
 
 ## Install
 
@@ -32,6 +38,8 @@ ollama pull qwen3:8b
 
 The userscript connects to `http://127.0.0.1:11434`. It requests structured JSON with thinking disabled. Archive/dictionary suggestions work without Ollama. Use **Warm 8B** or **Unload 8B** to manage model loading. The endpoint and model are defined in `CFG` near the top of the script.
 
+Yes, this is a large language model helping you name a word ending in “way.” Humanity has come a long way.
+
 ## Controls
 
 | Control | Action |
@@ -44,6 +52,8 @@ The userscript connects to `http://127.0.0.1:11434`. It requests structured JSON
 | Diagnostics | Check hooks, round identity, feed capture and confirmation evidence |
 
 Accepted, pending and rejected answers appear directly in the panel. Unknown observations remain separate. Tier colours include labels; historical suggestion tiers and actual accepted tiers are kept separate.
+
+**Regenerate** is the technical term for “surely I can pretend I knew something better.”
 
 ## Data and permissions
 
@@ -67,6 +77,8 @@ npm run check
 
 `npm run check` checks userscript syntax and runs the regression suite. Tests execute the distributed script directly and exercise browser orchestration with deterministic web API/DOM mocks. CI runs the same command.
 
+47 regression tests. For a fish cheat. The priorities are beyond questioning.
+
 ## Status and limitations
 
 The Party adapter follows public client JavaScript inspected on **2026-11-04**. The 47 regression tests cover its observed message shapes, round transitions, pending recovery, delayed responses, tier rendering and colour contrast. This is **not evidence of a verified live Violentmonkey session**. Browser injection and future game changes can affect tracking.
@@ -82,3 +94,7 @@ See [implementation notes](docs/implementation.md) for the detailed changelog, p
 - [Visited answer-guide pages](https://krilliongame.com/krillion-answers/).
 
 External datasets, guide content and game assets are not vendored here. Their ownership and terms remain with their respective sources. This repository's code is available under the [MIT License](LICENSE).
+
+---
+
+At the end of the day, it's a cheat for a fish game. We gave it CI anyway.
