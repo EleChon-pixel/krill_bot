@@ -26,7 +26,7 @@ Independent project. Unaffiliated with Krillion or Violentmonkey. Please don't m
 3. Create a script in the Violentmonkey dashboard, paste the contents, and save.
 4. **Fully reload the Krillion tab** so network hooks attach to new game connections.
 
-**Updating the earlier YŌKAI script:** edit that existing script instead of creating another copy. Its internal name and namespace are deliberately unchanged to preserve Violentmonkey storage. Keep only one copy enabled. The repository name is `krill_bot`; the panel still displays YŌKAI.
+**Updating an earlier installation:** edit the existing script in Violentmonkey, replace its contents, and save. Both its name and namespace now use `krill_bot`. Existing cache keys in the same script's storage are copied to the new names on first access, without deleting the originals. A fresh installation has separate storage and cannot automatically read another script's data; use Violentmonkey's backup/export first if you need to preserve it. Keep only one copy enabled.
 
 ### Optional local AI
 
@@ -77,11 +77,11 @@ npm run check
 
 `npm run check` checks userscript syntax and runs the regression suite. Tests execute the distributed script directly and exercise browser orchestration with deterministic web API/DOM mocks. CI runs the same command.
 
-47 regression tests. For a fish cheat. The priorities are beyond questioning.
+50 regression tests. For a fish cheat. The priorities are beyond questioning.
 
 ## Status and limitations
 
-The Party adapter follows public client JavaScript inspected on **2026-11-04**. The 47 regression tests cover its observed message shapes, round transitions, pending recovery, delayed responses, tier rendering and colour contrast. This is **not evidence of a verified live Violentmonkey session**. Browser injection and future game changes can affect tracking.
+The Party adapter follows public client JavaScript inspected on **2026-11-04**. The 50 regression tests cover its observed message shapes, round transitions, pending recovery, delayed responses, tier rendering and colour contrast. This is **not evidence of a verified live Violentmonkey session**. Browser injection and future game changes can affect tracking.
 
 If tracking is empty, fully reload the tab, open **Diagnostics**, and check the feed indicator. A hook marked installed does not prove it captured traffic. Missing patch history waits for a full snapshot rather than guessing. The literal word parser does not understand every possible English restriction.
 

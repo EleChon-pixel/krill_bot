@@ -1,14 +1,14 @@
-# YŌKAI Puffer AI Helper 8.1.0
+# krill_bot 8.1.1
 
 The installable userscript is `krill_bot.user.js`. No build step or extra JavaScript packages are needed.
 
 ## Install over version 7.5
 
-1. Open Violentmonkey's dashboard and edit the existing **YŌKAI Puffer AI Helper** script.
+1. Open Violentmonkey's dashboard and edit the existing **krill_bot** script.
 2. Replace its contents with the complete contents of `krill_bot.user.js`, then save.
 3. Reload your Krillion tab. Keep only one copy of the helper enabled.
 
-Editing the existing script retains its Violentmonkey storage. Version 8.1 uses the same archive, guide and official-answer storage keys as version 7.5. It validates old cached records before loading them.
+Version 8.1.1 renames the script, namespace, panel, log prefix and cache keys to `krill_bot`. Edit the existing installation to keep its script storage. When an old cache is available in that storage, it is copied to the new key on first access without deleting the original. Separate installations have separate storage; back up/export the previous installation before replacing it. Cached records are validated before loading.
 
 Ollama remains at `http://127.0.0.1:11434`, using `qwen3:8b`. The script requests structured JSON with thinking disabled. Your installed Ollama/model must support those options. Nothing is submitted to the game automatically.
 
@@ -44,7 +44,7 @@ Public implementation references: [room transport](https://krillion.io/_next/sta
 
 ## Validation and limitations
 
-Syntax checking and 47 dependency-free regression tests pass. Run them directly:
+Syntax checking and 50 dependency-free regression tests pass. Run them directly:
 
 ```bash
 node --check krill_bot.user.js

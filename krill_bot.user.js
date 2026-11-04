@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name         YŌKAI Puffer AI Helper
-// @namespace    yokai.local
+// @name         krill_bot
+// @namespace    krill_bot.local
 // @homepageURL  https://github.com/EleChon-pixel/krill_bot
 // @supportURL   https://github.com/EleChon-pixel/krill_bot/issues
-// @version      8.1.0
+// @version      8.1.1
 // @description  Historical answers, local word lookup and Qwen3; round-aware tracking; manual submit.
 // @match        https://krillion.io/*
 // @match        https://www.krillion.io/*
@@ -11,6 +11,7 @@
 // @resource     lexicon https://raw.githubusercontent.com/first20hours/google-10000-english/master/20k.txt
 // @resource     krillionArchive https://raw.githubusercontent.com/StruggleYang/krillion-dataset/main/data/krillion_dives.json
 // @grant        GM_getResourceText
+// @grant        GM_listValues
 // @grant        GM_getValue
 // @grant        GM_setValue
 // @grant        GM_addValueChangeListener
@@ -32,7 +33,7 @@
     MAX_BYTES: 256000, MAX_EVENTS: 300, MAX_CANDIDATES: 4000,
     REFRESH_MS: 86400000, STAGE_MS: 8000, SCAN_MS: 2000
   });
-  const KEYS = Object.freeze({ archive: 'yokai_public_daily_archive_v1', guide: 'yokai_guide_pages_v1', official: 'yokai_official_manual_v1' });
+  const KEYS = Object.freeze({ archive: 'krill_bot_public_daily_archive_v1', guide: 'krill_bot_guide_pages_v1', official: 'krill_bot_official_manual_v1' });
   const ARCHIVE_URL = 'https://raw.githubusercontent.com/StruggleYang/krillion-dataset/main/data/krillion_dives.json';
   // Verified against the public Party UI bundle; explicit dark backgrounds below.
   const TIERS = Object.freeze({ plankton: { points: 10, color: '#8fa3c4', label: 'Plankton' }, tooclever: { points: 15, color: '#ff9f43', label: 'Too Clever' }, schooler: { points: 30, color: '#4de3ff', label: 'Schooler' }, rare: { points: 60, color: '#ff5252', label: 'Rare' }, deepcut: { points: 85, color: '#9d7bff', label: 'Deep Cut' }, krillion: { points: 100, color: '#ffd166', label: 'One in a Krillion' } });
@@ -321,8 +322,25 @@
     return;
   }
 
-  const log = (...args) => console.debug('[YŌKAI Puffer]', ...args);
-  function saved(key) { try { const value = GM_getValue(key, 'null'); return typeof value === 'string' ? JSON.parse(value) : value; } catch { return null; } }
+  const log = (...args) => console.debug('[krill_bot]', ...args);
+  function saved(key) {
+    const read = name => { try { const value = GM_getValue(name, 'null'); return typeof value === 'string' ? JSON.parse(value) : value; } catch { return null; } };
+    const current = read(key);
+    if (current !== null && current !== undefined) return current;
+    // Same-script migration: identify prior cache names by their stable format
+    // suffix, keeping the old entry intact. Separate installations are isolated.
+    const suffix = ['_public_daily_archive_v1', '_guide_pages_v1', '_official_manual_v1'].find(value => key === `krill_bot${value}`);
+    if (!suffix || typeof GM_listValues !== 'function') return null;
+    try {
+      for (const previous of GM_listValues().filter(name => name !== key && name.endsWith(suffix)).sort()) {
+        const value = read(previous);
+        if (!value || typeof value !== 'object' || Array.isArray(value)) continue;
+        store(key, value);
+        return value;
+      }
+    } catch (error) { log('Previous cache unavailable', error); }
+    return null;
+  }
   function store(key, value) { try { GM_setValue(key, JSON.stringify(value)); return true; } catch (error) { log('Storage failed', error); return false; } }
   const gate = createRoundGate();
   const state = {
@@ -521,7 +539,7 @@
     install('WebSocket', () => {
       const Native = page.WebSocket;
       if (typeof Native !== 'function') throw new Error('API unavailable');
-      if (Native.__yokai8) { state.hooks.WebSocket = 'already wrapped'; return; }
+      if (Native.__krill_botWrapped) { state.hooks.WebSocket = 'already wrapped'; return; }
       class Monitored extends Native {
         constructor(...args) {
           super(...args);
@@ -532,7 +550,7 @@
         }
         send(data) { const result = super.send(data); try { trackOutgoing(data); } catch { /* passive tap only */ } return result; }
       }
-      Object.defineProperty(Monitored, '__yokai8', { value: true });
+      Object.defineProperty(Monitored, '__krill_botWrapped', { value: true });
       page.WebSocket = Monitored;
       if (page.WebSocket !== Monitored) throw new Error('Page assignment did not stick');
     });
@@ -927,15 +945,15 @@
       for (const date of Object.keys(days).sort().reverse().slice(80)) delete days[date];
       if (store(KEYS.guide, { days })) {
         last = serial; log(`Saved guide ${match[1]}: ${entries.length} questions`);
-        let note = document.getElementById('yokai-guide-note');
-        if (!note) { note = document.createElement('div'); note.id = 'yokai-guide-note'; Object.assign(note.style, { position: 'fixed', bottom: '15px', right: '15px', background: '#171923', color: '#fff', padding: '10px 14px', zIndex: '2147483647', borderRadius: '8px', font: '12px sans-serif' }); document.body.appendChild(note); }
-        note.textContent = `YŌKAI: saved ${entries.length} questions / ${entries.reduce((n, row) => n + row[1].length, 0)} answers`;
+        let note = document.getElementById('krill_bot-guide-note');
+        if (!note) { note = document.createElement('div'); note.id = 'krill_bot-guide-note'; Object.assign(note.style, { position: 'fixed', bottom: '15px', right: '15px', background: '#171923', color: '#fff', padding: '10px 14px', zIndex: '2147483647', borderRadius: '8px', font: '12px sans-serif' }); document.body.appendChild(note); }
+        note.textContent = `krill_bot: saved ${entries.length} questions / ${entries.reduce((n, row) => n + row[1].length, 0)} answers`;
       }
     };
     const start = () => {
       run(); let timer;
       const observer = new MutationObserver(mutations => {
-        if (mutations.every(m => m.target.closest?.('#yokai-guide-note') || m.target.parentElement?.closest('#yokai-guide-note'))) return;
+        if (mutations.every(m => m.target.closest?.('#krill_bot-guide-note') || m.target.parentElement?.closest('#krill_bot-guide-note'))) return;
         clearTimeout(timer); timer = setTimeout(run, 400);
       });
       observer.observe(document.body, { childList: true, subtree: true, characterData: true });
@@ -993,13 +1011,13 @@
     ui.debug.textContent = `Injection: ${context}\nHooks: ${Object.entries(state.hooks).map(([name, status]) => `${name}: ${status}`).join('; ')}\nInstalled hooks are not proof of captured game traffic.\nRoute: ${gate.route || '(outside Party)'}\nEpoch: ${gate.epoch} · round: ${gate.id || '(unbound)'} · room: ${state.roomId || '(unbound)'}\nBuffered round IDs: ${[...gate.staged.keys()].join(', ') || 'none'}\nUSED container: ${state.dom.used?.root?.isConnected ? 'located' : 'not located'}\nLast confirmation: ${state.lastConfirmation || 'none'}\nTransport: ${state.lastTransport || 'none'}\nTransport note: ${state.lastTransportError || 'none'}\nArchive snapshot: ${state.newest || 'unavailable'}\nCandidates: ${rows.length} · rules: ${JSON.stringify(state.rules)}`;
   }
   function makeUI() {
-    const host = document.createElement('div'); host.id = 'yokai-puffer-helper';
+    const host = document.createElement('div'); host.id = 'krill_bot-panel';
     host.style.cssText = 'all:initial;position:fixed;top:76px;right:16px;width:410px;max-width:calc(100vw - 32px);z-index:2147483647;color-scheme:dark';
     const root = host.attachShadow({ mode: 'open' });
     root.innerHTML = `<style>
       :host{font:12px ui-monospace,monospace;color:#f4f4f5}*{box-sizing:border-box}section{padding:12px;background:rgba(8,8,12,.97);border:1px solid #45454d;border-radius:12px;box-shadow:0 14px 40px #0008;max-height:calc(100dvh - 100px);overflow:auto}h2{font-size:13px;margin:0}p{margin:7px 0;line-height:1.4}button{font:inherit;color:inherit;background:#24242c;border:1px solid #555560;border-radius:6px;padding:7px;cursor:pointer}button:hover{background:#383843}button:focus-visible{outline:2px solid #86d8ef}.answer{width:100%;display:grid;grid-template-columns:20px minmax(0,1fr);gap:5px 8px;text-align:left;margin:5px 0}.answer small{grid-column:2;font-size:10px;color:#bbb}.controls{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.note{font-size:11px;color:#bbb;overflow-wrap:anywhere}details{margin-top:9px}summary{cursor:pointer}pre{font:10px ui-monospace,monospace;white-space:pre-wrap;overflow-wrap:anywhere}.record{max-height:70px;overflow:auto}.top{display:flex;justify-content:space-between;gap:8px}#body[hidden]{display:none}
       section{color:#f4f4f5;font:12px ui-monospace,SFMono-Regular,monospace;color-scheme:dark;background:#0c1019}button{color:#f4f4f5;background:#202838;border-color:#65718b}button:hover{background:#303f57}.answer{border-left:5px solid var(--tier-color);background:#141e2d}.answer small{color:var(--tier-color);font-weight:700}.tracking{margin-top:12px;padding:9px;background:#131c2a;border:1px solid #53617a;border-radius:8px}.record{max-height:110px;margin:7px 0}.chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}.chip{color:var(--chip-color);border:1px solid var(--chip-color);background:#111827;border-radius:5px;padding:4px 6px;font-size:11px;line-height:1.4}.empty{color:#b9c5d8}.note{color:#c7d2e5}#capture{font-size:10px;color:#b5dcff}.legend{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0;font-size:10px}.legend span{color:var(--legend-color);border-bottom:3px solid var(--legend-color);padding-bottom:3px}
-    </style><section aria-label="YŌKAI Puffer helper"><div class="top"><h2>YŌKAI · PUFFER v8.1</h2><button id="collapse" type="button" aria-expanded="true" aria-controls="body">Collapse</button></div><div id="body">
+    </style><section aria-label="krill_bot"><div class="top"><h2>krill_bot v8.1.1</h2><button id="collapse" type="button" aria-expanded="true" aria-controls="body">Collapse</button></div><div id="body">
       <p id="model" class="note"></p><p id="prompt"></p><p id="status" role="status" aria-live="polite"></p>
       <p class="note">Manual submit · Alt+1…5 fills · Historical scores can differ in Party. Dictionary/model answers require game validation.</p>
       <div class="legend">${Object.values(TIERS).map(tier => `<span style="--legend-color:${tier.color}">${tier.label}</span>`).join('')}</div>

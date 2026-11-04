@@ -1,6 +1,6 @@
 {
   "name": "krill_bot",
-  "version": "8.1.0",
+  "version": "8.1.1",
   "private": true,
   "description": "A manual-submit Violentmonkey helper for Krillion Puffer Party",
   "license": "MIT",

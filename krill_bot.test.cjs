@@ -181,7 +181,9 @@ function browserHarness(options = {}) {
     console, URL, TextDecoder, TextEncoder, ArrayBuffer, Response, performance, location,
     document: { body: null, querySelectorAll: () => [], addEventListener() {} },
     window: {}, unsafeWindow: page, GM_info: { injectInto: 'test' },
-    GM_getValue: () => 'null', GM_getResourceText: () => '', GM_setValue() {},
+    GM_getValue: (key, fallback) => options.storage?.get(key) ?? fallback,
+    GM_listValues: () => [...(options.storage?.keys() || [])],
+    GM_getResourceText: () => '', GM_setValue: (key, value) => options.storage?.set(key, value),
     GM_xmlhttpRequest: options.gm || (() => ({ abort() {} })),
     setTimeout: (fn, ms) => { timers.set(++timerId, { fn, ms }); return timerId; },
     clearTimeout: id => timers.delete(id),
@@ -190,7 +192,7 @@ function browserHarness(options = {}) {
     getComputedStyle: () => ({ display: 'block', visibility: 'visible', opacity: '1' })
   });
   const original = fs.readFileSync(filename, 'utf8');
-  const instrumented = original.replace(/\}\)\(\);\s*$/, 'globalThis.testHooks = { state, gate, beginRound, handleEvent, consumeTransport, applyEvent, pending, resetRoute, reconcile, generate, warmModel, unloadModel, scanUsedRoot, scanUsedAnswers, consumeParty, trackOutgoing, render, makeUI };\n})();');
+  const instrumented = original.replace(/\}\)\(\);\s*$/, 'globalThis.testHooks = { state, gate, beginRound, handleEvent, consumeTransport, applyEvent, pending, resetRoute, reconcile, generate, warmModel, unloadModel, scanUsedRoot, scanUsedAnswers, consumeParty, trackOutgoing, render, makeUI, saved };\n})();');
   vm.runInContext(instrumented, context, { filename });
   return { ...context.testHooks, context, location, page, timers };
 }
@@ -466,4 +468,26 @@ test('UI template provides explicit dark-mode text colour despite inline all:ini
   assert.match(root.innerHTML, /border-left:5px solid var\(--tier-color\)/);
   assert.match(root.innerHTML, /<div class="tracking">/);
   assert.doesNotMatch(root.innerHTML, /<details><summary>Answer tracking/);
+});
+
+test('renamed caches migrate same-script data without deleting the original keys', () => {
+  for (const suffix of ['_public_daily_archive_v1', '_guide_pages_v1', '_official_manual_v1']) {
+    const oldKey = `previous${suffix}`, newKey = `krill_bot${suffix}`;
+    const serialized = JSON.stringify({ retained: suffix });
+    const storage = new Map([[oldKey, serialized]]), h = browserHarness({ storage });
+    assert.equal(h.saved(newKey).retained, suffix);
+    assert.equal(storage.get(newKey), serialized); assert.equal(storage.get(oldKey), serialized);
+  }
+});
+
+test('renamed caches prefer new data over older compatible keys', () => {
+  const storage = new Map([['previous_guide_pages_v1', '{"days":{"old":[]}}'], ['krill_bot_guide_pages_v1', '{"days":{"new":[]}}']]);
+  const h = browserHarness({ storage }); assert.deepEqual(Object.keys(h.saved('krill_bot_guide_pages_v1').days), ['new']);
+});
+
+test('cache migration skips malformed data and never migrates unrelated preferences', () => {
+  const storage = new Map([['a_guide_pages_v1', 'invalid'], ['b_guide_pages_v1', '[]'], ['c_guide_pages_v1', '{"days":{}}'], ['previous_other', '{"secret":true}']]);
+  const h = browserHarness({ storage });
+  assert.equal(JSON.stringify(h.saved('krill_bot_guide_pages_v1')), '{"days":{}}');
+  assert.equal(h.saved('krill_bot_other'), null); assert.equal(storage.has('krill_bot_other'), false);
 });
