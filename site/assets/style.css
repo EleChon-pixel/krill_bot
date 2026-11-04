@@ -94,9 +94,10 @@ h3 {
   font-size:1.2rem;
   letter-spacing:-.03em;
 }
-.brand img {
-  width:44px;
-  height:41px;
+.brand-puffer {
+  display:inline-block;
+  font-size:32px;
+  line-height:1;
 }
 .header nav {
   display:flex;
@@ -565,9 +566,8 @@ pre code {
   .brand {
     font-size:1.05rem;
   }
-  .brand img {
-    width:36px;
-    height:34px;
+  .brand-puffer {
+    font-size:28px;
   }
   .hero {
     grid-template-columns:1fr;
