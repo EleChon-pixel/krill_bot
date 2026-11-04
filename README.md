@@ -1,6 +1,10 @@
-# krill_bot 🐡
+# Krill Bot — Krillion Puffer Party Cheat & Answer Helper 🐡
 
-A cheat for Krillion Puffer Party. The fish brought an 8B model to a trivia game.
+A free, open-source Krillion Puffer Party userscript with historical answers, word suggestions, and optional local AI. The fish brought an 8B model to a trivia game.
+
+**[Install userscript](https://raw.githubusercontent.com/EleChon-pixel/krill_bot/main/krill_bot.user.js)** · **[Website](https://elechon-pixel.github.io/krill_bot/)** · **[Installation guide](https://elechon-pixel.github.io/krill_bot/install/)** · **[Optional Ollama guide](https://elechon-pixel.github.io/krill_bot/local-ai/)**
+
+Install [Violentmonkey](https://violentmonkey.github.io/get-it/) first. No Ollama or cloud account is needed for archive and dictionary suggestions.
 
 It digs through historical answers, checks a word list, and asks a local AI when your brain has left the aquarium. A Violentmonkey userscript with a deeply unnecessary amount of engineering behind it.
 
@@ -22,11 +26,13 @@ Independent project. Unaffiliated with Krillion or Violentmonkey. Please don't m
 ## Install
 
 1. Install [Violentmonkey](https://violentmonkey.github.io/get-it/) in your browser.
-2. Open [`krill_bot.user.js`](krill_bot.user.js) and copy its complete contents.
-3. Create a script in the Violentmonkey dashboard, paste the contents, and save.
+2. Open **[Install userscript](https://raw.githubusercontent.com/EleChon-pixel/krill_bot/main/krill_bot.user.js)**. With Violentmonkey enabled, this should open its installation screen.
+3. Review the script and permissions, then choose **Install** in Violentmonkey.
 4. **Fully reload the Krillion tab** so network hooks attach to new game connections.
 
-**Updating an earlier installation:** edit the existing script in Violentmonkey, replace its contents, and save. Both its name and namespace now use `krill_bot`. Existing cache keys in the same script's storage are copied to the new names on first access, without deleting the originals. A fresh installation has separate storage and cannot automatically read another script's data; use Violentmonkey's backup/export first if you need to preserve it. Keep only one copy enabled.
+If the link displays source code instead, create a script in the Violentmonkey dashboard, replace its contents with the complete [`krill_bot.user.js`](krill_bot.user.js), and save. See the [installation and troubleshooting guide](https://elechon-pixel.github.io/krill_bot/install/).
+
+**Updating an earlier installation:** back up/export it in Violentmonkey first. For an existing `krill_bot` / `krill_bot.local` installation, use the direct installation link or the manager's update command; the name and namespace remain unchanged so the manager can recognize it. For older identities, edit the existing script, replace its contents, and save. Existing cache keys in the same script's storage are copied to the new names on first access, without deleting the originals. A fresh installation has separate storage and cannot automatically read another script's data. Keep only one copy enabled.
 
 ### Optional local AI
 
@@ -75,7 +81,7 @@ cd krill_bot
 npm run check
 ```
 
-`npm run check` checks userscript syntax and runs the regression suite. Tests execute the distributed script directly and exercise browser orchestration with deterministic web API/DOM mocks. CI runs the same command.
+`npm run check` checks userscript syntax, runs the regression suite, and checks the website's internal links and SEO metadata. Tests execute the distributed script directly and exercise browser orchestration with deterministic web API/DOM mocks. CI runs the same command.
 
 50 regression tests. For a fish cheat. The priorities are beyond questioning.
 
@@ -86,6 +92,12 @@ The Party adapter follows public client JavaScript inspected on **2026-11-04**. 
 If tracking is empty, fully reload the tab, open **Diagnostics**, and check the feed indicator. A hook marked installed does not prove it captured traffic. Missing patch history waits for a full snapshot rather than guessing. The literal word parser does not understand every possible English restriction.
 
 See [implementation notes](docs/implementation.md) for the detailed changelog, protocol references and limitations. To report a problem, include the version, browser, Violentmonkey version and a redacted example. Do not post player keys, auth tokens, room invite links or private chat.
+
+## Website and discovery
+
+The buildless website lives in [`site/`](site/). It includes a Krillion Puffer Party landing page, a Violentmonkey installation guide, an optional Ollama guide, canonical URLs, social previews, and a sitemap. Its panel is a labeled illustration, not a live-game screenshot or evidence of compatibility.
+
+GitHub Actions checks the project before publishing `site/` to GitHub Pages. See [website operations](docs/website.md) for preview commands, page topics, and Search Console setup. Search terms are initial hypotheses, not measured demand or ranking promises.
 
 ## Sources and license
 

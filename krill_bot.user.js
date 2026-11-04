@@ -1,10 +1,12 @@
 // ==UserScript==
 // @name         krill_bot
 // @namespace    krill_bot.local
-// @homepageURL  https://github.com/EleChon-pixel/krill_bot
+// @homepageURL  https://elechon-pixel.github.io/krill_bot/
 // @supportURL   https://github.com/EleChon-pixel/krill_bot/issues
-// @version      8.1.1
-// @description  Historical answers, local word lookup and Qwen3; round-aware tracking; manual submit.
+// @downloadURL  https://raw.githubusercontent.com/EleChon-pixel/krill_bot/main/krill_bot.user.js
+// @updateURL    https://raw.githubusercontent.com/EleChon-pixel/krill_bot/main/krill_bot.user.js
+// @version      8.1.2
+// @description  Krill Bot: a Krillion Puffer Party cheat and answer helper with historical answers, word suggestions and optional local AI. Manual submit.
 // @match        https://krillion.io/*
 // @match        https://www.krillion.io/*
 // @match        https://krilliongame.com/krillion-answers/*
@@ -1017,7 +1019,7 @@
     root.innerHTML = `<style>
       :host{font:12px ui-monospace,monospace;color:#f4f4f5}*{box-sizing:border-box}section{padding:12px;background:rgba(8,8,12,.97);border:1px solid #45454d;border-radius:12px;box-shadow:0 14px 40px #0008;max-height:calc(100dvh - 100px);overflow:auto}h2{font-size:13px;margin:0}p{margin:7px 0;line-height:1.4}button{font:inherit;color:inherit;background:#24242c;border:1px solid #555560;border-radius:6px;padding:7px;cursor:pointer}button:hover{background:#383843}button:focus-visible{outline:2px solid #86d8ef}.answer{width:100%;display:grid;grid-template-columns:20px minmax(0,1fr);gap:5px 8px;text-align:left;margin:5px 0}.answer small{grid-column:2;font-size:10px;color:#bbb}.controls{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.note{font-size:11px;color:#bbb;overflow-wrap:anywhere}details{margin-top:9px}summary{cursor:pointer}pre{font:10px ui-monospace,monospace;white-space:pre-wrap;overflow-wrap:anywhere}.record{max-height:70px;overflow:auto}.top{display:flex;justify-content:space-between;gap:8px}#body[hidden]{display:none}
       section{color:#f4f4f5;font:12px ui-monospace,SFMono-Regular,monospace;color-scheme:dark;background:#0c1019}button{color:#f4f4f5;background:#202838;border-color:#65718b}button:hover{background:#303f57}.answer{border-left:5px solid var(--tier-color);background:#141e2d}.answer small{color:var(--tier-color);font-weight:700}.tracking{margin-top:12px;padding:9px;background:#131c2a;border:1px solid #53617a;border-radius:8px}.record{max-height:110px;margin:7px 0}.chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}.chip{color:var(--chip-color);border:1px solid var(--chip-color);background:#111827;border-radius:5px;padding:4px 6px;font-size:11px;line-height:1.4}.empty{color:#b9c5d8}.note{color:#c7d2e5}#capture{font-size:10px;color:#b5dcff}.legend{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0;font-size:10px}.legend span{color:var(--legend-color);border-bottom:3px solid var(--legend-color);padding-bottom:3px}
-    </style><section aria-label="krill_bot"><div class="top"><h2>krill_bot v8.1.1</h2><button id="collapse" type="button" aria-expanded="true" aria-controls="body">Collapse</button></div><div id="body">
+    </style><section aria-label="Krill Bot — Krillion Puffer Party answer helper"><div class="top"><h2>Krill Bot v8.1.2</h2><button id="collapse" type="button" aria-expanded="true" aria-controls="body">Collapse</button></div><div id="body">
       <p id="model" class="note"></p><p id="prompt"></p><p id="status" role="status" aria-live="polite"></p>
       <p class="note">Manual submit · Alt+1…5 fills · Historical scores can differ in Party. Dictionary/model answers require game validation.</p>
       <div class="legend">${Object.values(TIERS).map(tier => `<span style="--legend-color:${tier.color}">${tier.label}</span>`).join('')}</div>

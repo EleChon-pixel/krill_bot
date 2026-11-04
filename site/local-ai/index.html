@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Krillion Local AI with Ollama &amp; Qwen3 8B | Krill Bot</title>
+  <meta name="description" content="Add optional local AI to Krill Bot for Krillion Puffer Party. Set up Ollama and Qwen3 8B, warm the model, check the local endpoint and troubleshoot generation.">
+  <link rel="canonical" href="https://elechon-pixel.github.io/krill_bot/local-ai/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Krill Bot">
+  <meta property="og:title" content="Krillion Local AI with Ollama &amp; Qwen3 8B | Krill Bot">
+  <meta property="og:description" content="Give the fish an 8B brain cell. Optional local generation for Krillion Puffer Party, with setup and troubleshooting.">
+  <meta property="og:url" content="https://elechon-pixel.github.io/krill_bot/local-ai/">
+  <meta property="og:image" content="https://elechon-pixel.github.io/krill_bot/assets/social.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Krill Bot: Krillion Puffer Party answer helper with optional local AI and manual submit.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Krill Bot Local AI — Ollama &amp; Qwen3 8B">
+  <meta name="twitter:description" content="Set up optional local AI for Krillion Puffer Party. Model download, warm-up, endpoint checks and troubleshooting.">
+  <meta name="twitter:image" content="https://elechon-pixel.github.io/krill_bot/assets/social.png">
+  <meta name="twitter:image:alt" content="Krill Bot: Krillion Puffer Party answer helper with optional local AI and manual submit.">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="wrap header"><a class="brand" href="../"><img src="../assets/favicon.svg" width="36" height="36" alt="">krill bot</a><nav aria-label="Main navigation"><a href="../install/">Installation</a><a href="./" aria-current="page">Local AI</a><a href="https://github.com/EleChon-pixel/krill_bot">GitHub ↗</a></nav></header>
+  <main id="main" class="wrap">
+    <div class="article-head"><p class="eyebrow">Optional local AI · Ollama + Qwen3 8B</p><h1>The fish brought an 8B model.</h1><p class="intro">Add local AI suggestions to Krill Bot for Krillion Puffer Party. The model runs on your computer. You still submit every answer.</p><p class="backlink"><a href="../install/">Install the userscript first →</a></p></div>
+    <div class="article-layout">
+      <nav class="contents" aria-label="On this page"><p>On this page</p><a href="#need">Do I need AI?</a><a href="#setup">Ollama setup</a><a href="#use">Warm &amp; use</a><a href="#data">Data &amp; model behavior</a><a href="#troubleshooting">Troubleshooting</a></nav>
+      <div class="prose">
+        <section id="need"><h2>AI is an optional extra</h2><p>Historical archive and local dictionary suggestions work without Ollama. Add a model if you want generated candidates for prompts where those sources are not enough.</p><p>You need an Ollama-supported computer with enough disk space and memory for <a href="https://ollama.com/library/qwen3:8b">Qwen3 8B</a>. Generation speed and usable memory depend on your hardware. A GPU can help, but this project does not establish a minimum hardware specification or promise answers within a round.</p><div class="callout"><p><strong>Start with the basic helper.</strong> The <a href="../install/">Krillion userscript installation</a> is separate from this optional model setup.</p></div></section>
+        <section id="setup"><h2>Set up Ollama and Qwen3</h2><ol><li>Install Ollama using its <a href="https://ollama.com/download">official download</a> and <a href="https://docs.ollama.com/quickstart">setup instructions</a> for your operating system. Use the local model; Krill Bot does not require an Ollama cloud account or API key.</li><li>Make sure Ollama is running, then download the configured model:</li></ol><pre><code>ollama pull qwen3:8b</code></pre><p>If your installation does not already run Ollama in the background, start the local service in another terminal:</p><pre><code>ollama serve</code></pre><p>If it reports that the address is already in use, Ollama may already be running. Check its local model list:</p><pre><code>curl http://127.0.0.1:11434/api/tags</code></pre><p>The response should list <code>qwen3:8b</code> after the download completes. The userscript’s default endpoint is <code>http://127.0.0.1:11434/api/generate</code>. Use Ollama on the same computer as your browser.</p></section>
+        <section id="use"><h2>Warm the brain cell</h2><ol><li>Fully reload Krillion after installing the userscript, then open Puffer Party.</li><li>Choose <strong>Warm 8B</strong> in the Krill Bot panel to load the configured model before you need it.</li><li>The script requests generated suggestions when needed. Read them before choosing one; selecting an answer only fills the input.</li><li>Use <strong>Regenerate</strong> to skip the displayed suggestions and request alternatives through the helper’s candidate selection.</li><li>Choose <strong>Unload 8B</strong> when you want Ollama to release the model from memory.</li></ol><p>Warming reduces the need to load the model during a round, but it does not guarantee low latency. The configured generation timeout is 45 seconds, so a slow request can outlast the time available to answer.</p></section>
+        <section id="data"><h2>What the model sees</h2><p>When generation is needed, the script sends category and candidate text to the local endpoint. It requests structured JSON with thinking disabled. No cloud model is required by this configuration.</p><p>The game remains the authority on acceptance and score. Qwen can invent answers, miss a restriction, or give a familiar answer. Generated candidates are not verified facts or guaranteed high-scoring answers.</p><p>The model name and endpoint are defined in <code>CFG</code> near the top of <a href="https://github.com/EleChon-pixel/krill_bot/blob/main/krill_bot.user.js">the userscript</a>. The distributed script grants network access to <code>127.0.0.1</code> for Ollama. Changing the endpoint requires reviewing those permissions as well; the documented setup uses the default local endpoint.</p></section>
+        <section id="troubleshooting"><h2>When generation is not working</h2><h3>Connection refused or unavailable</h3><p>Confirm Ollama is running on the same computer as the browser. Try the <code>/api/tags</code> command above. If that fails too, resolve the local service first using <a href="https://docs.ollama.com/quickstart">Ollama’s documentation</a>.</p><h3>Model not found</h3><p>Run <code>ollama list</code> and check for <code>qwen3:8b</code>. Download it with <code>ollama pull qwen3:8b</code> if it is missing. The model name must match the script configuration.</p><h3>The model is too slow or runs out of memory</h3><p>Warm it before a round, close other memory-heavy applications, or use archive and dictionary suggestions without generation. There is no requirement to keep a local model loaded.</p><h3>Ollama works, but the browser helper fails</h3><p>Check the enabled script’s local-network permission and panel Diagnostics, then reload the game. The regression suite does not verify browser injection in a live session. Report your script, browser, and Violentmonkey versions in a <a href="https://github.com/EleChon-pixel/krill_bot/issues">redacted issue</a>.</p></section>
+        <a class="next-guide" href="../install/#troubleshooting"><span>Need help with the browser panel?</span>Userscript troubleshooting →</a>
+      </div>
+    </div>
+  </main>
+  <footer class="wrap footer"><p>Krill Bot · independent, open source, MIT licensed.<br>Unaffiliated with Krillion, Violentmonkey, Ollama, or Qwen.</p><nav aria-label="Footer"><a href="../">Home</a><a href="https://github.com/EleChon-pixel/krill_bot">Source</a><a href="https://github.com/EleChon-pixel/krill_bot/issues">Report an issue</a></nav></footer>
+</body>
+</html>

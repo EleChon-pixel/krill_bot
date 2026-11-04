@@ -1,12 +1,13 @@
 {
   "name": "krill_bot",
-  "version": "8.1.1",
+  "version": "8.1.2",
   "private": true,
-  "description": "A manual-submit Violentmonkey helper for Krillion Puffer Party",
+  "description": "Krill Bot — a Krillion Puffer Party cheat and answer helper with optional local AI and manual submit",
   "license": "MIT",
   "engines": { "node": ">=24" },
   "scripts": {
-    "check": "node --check krill_bot.user.js && npm test",
+    "check": "node --check krill_bot.user.js && npm test && npm run check:site",
+    "check:site": "node scripts/check-site.cjs",
     "test": "node krill_bot.test.cjs"
   },
   "repository": { "type": "git", "url": "https://github.com/EleChon-pixel/krill_bot.git" }

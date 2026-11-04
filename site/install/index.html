@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Install the Krillion Userscript with Violentmonkey | Krill Bot</title>
+  <meta name="description" content="Install Krill Bot for Krillion Puffer Party with Violentmonkey. Direct userscript link, manual fallback, updates, permissions and troubleshooting. AI is optional.">
+  <link rel="canonical" href="https://elechon-pixel.github.io/krill_bot/install/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Krill Bot">
+  <meta property="og:title" content="Install the Krillion Userscript with Violentmonkey | Krill Bot">
+  <meta property="og:description" content="Get the Krillion Puffer Party answer helper: direct installation, permissions, updates and troubleshooting. No AI setup required.">
+  <meta property="og:url" content="https://elechon-pixel.github.io/krill_bot/install/">
+  <meta property="og:image" content="https://elechon-pixel.github.io/krill_bot/assets/social.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Krill Bot: Krillion Puffer Party answer helper with optional local AI and manual submit.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Install Krill Bot with Violentmonkey">
+  <meta name="twitter:description" content="Direct userscript installation, fallback steps, permissions, updates and troubleshooting for Krillion Puffer Party.">
+  <meta name="twitter:image" content="https://elechon-pixel.github.io/krill_bot/assets/social.png">
+  <meta name="twitter:image:alt" content="Krill Bot: Krillion Puffer Party answer helper with optional local AI and manual submit.">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="wrap header"><a class="brand" href="../"><img src="../assets/favicon.svg" width="36" height="36" alt="">krill bot</a><nav aria-label="Main navigation"><a href="./" aria-current="page">Installation</a><a href="../local-ai/">Local AI</a><a href="https://github.com/EleChon-pixel/krill_bot">GitHub ↗</a></nav></header>
+  <main id="main" class="wrap">
+    <div class="article-head"><p class="eyebrow">Krillion userscript · installation guide</p><h1>Install Krill Bot with Violentmonkey.</h1><p class="intro">Get the Krillion Puffer Party answer helper into your browser. Archive and dictionary suggestions work without Ollama.</p><div class="actions"><a class="button" href="https://raw.githubusercontent.com/EleChon-pixel/krill_bot/main/krill_bot.user.js">Install userscript ↗</a><a href="https://violentmonkey.github.io/get-it/">Get Violentmonkey first</a></div></div>
+    <div class="article-layout">
+      <nav class="contents" aria-label="On this page"><p>On this page</p><a href="#install">Install</a><a href="#fallback">Manual fallback</a><a href="#updates">Updates &amp; existing users</a><a href="#permissions">Data &amp; permissions</a><a href="#troubleshooting">Troubleshooting</a><a href="#remove">Remove the script</a></nav>
+      <div class="prose">
+        <section id="install"><h2>Install the userscript</h2><ol>
+          <li>Use a browser supported by <a href="https://violentmonkey.github.io/get-it/">Violentmonkey</a> and install the extension from its official download page. Browser support for the extension is separate from verification of this script’s compatibility.</li>
+          <li>Open the <a href="https://raw.githubusercontent.com/EleChon-pixel/krill_bot/main/krill_bot.user.js">direct Krill Bot userscript link</a>. With the extension enabled, the link should open Violentmonkey’s installation screen.</li>
+          <li>Review the source, matching sites, and requested permissions. The script manager displays the internal name <code>krill_bot</code>. Choose <strong>Install</strong>.</li>
+          <li>Open <a href="https://krillion.io/">Krillion</a> and <strong>fully reload the tab</strong>. Enter Puffer Party so network hooks can attach to new connections.</li>
+          <li>When suggestions appear, click one or press <strong>Alt+1–5</strong> to fill the answer input. Check it and submit yourself. Filling an answer never submits it.</li>
+        </ol><div class="callout"><p><strong>Start without AI.</strong> No Ollama installation, model download, or cloud account is required for historical archive and dictionary suggestions.</p></div></section>
+        <section id="fallback"><h2>If the install link displays code</h2><p>Your browser may display or download the JavaScript instead of opening an installation screen. Use the manual route:</p><ol><li>Open the Violentmonkey dashboard and create a new script.</li><li>Open <a href="https://raw.githubusercontent.com/EleChon-pixel/krill_bot/main/krill_bot.user.js">the complete userscript source</a> and copy all of it, including the metadata block beginning <code>// ==UserScript==</code>.</li><li>Replace the entire new-script template with that source, save, and keep the script enabled.</li><li>Fully reload the Krillion tab and reopen Party. Keep only one copy of the script enabled.</li></ol></section>
+        <section id="updates"><h2>Updates and existing installations</h2><p><strong>Back up/export your script and storage first.</strong> For installations with the name <code>krill_bot</code> and namespace <code>krill_bot.local</code>, open the direct installation link again or use Violentmonkey’s update command. The identity stays the same so the manager can recognize the existing installation. Download and update metadata point to the repository’s main-branch userscript.</p><p>If you use an older script with another identity, edit that existing installation, replace its full contents, and save. The script copies validated older cache keys to the current keys when they exist in the same storage. A separate new installation cannot automatically read another script’s storage.</p><p>Keep only one copy enabled, then fully reload the game. For the full history, see the <a href="https://github.com/EleChon-pixel/krill_bot/blob/main/docs/implementation.md">implementation notes</a>.</p></section>
+        <section id="permissions"><h2>What it reads and where data goes</h2><table class="permissions"><thead><tr><th scope="col">Access</th><th scope="col">Purpose</th></tr></thead><tbody>
+          <tr><th scope="row">krillion.io and www.krillion.io</th><td>Observe relevant game messages and page elements to show the panel and track answer state. The adapter retains required room fields, excluding player records and chat.</td></tr>
+          <tr><th scope="row">Dated krilliongame.com answer pages</th><td>Import historical guide answers from pages you visit.</td></tr>
+          <tr><th scope="row">raw.githubusercontent.com</th><td>Download the declared public word list and Daily Dive dataset. The archive can refresh once per day. The manager also checks and downloads script updates there.</td></tr>
+          <tr><th scope="row">127.0.0.1:11434</th><td>Send category and candidate text to local Ollama when generation is needed, and manage model warming or unloading. No cloud model is required.</td></tr>
+          <tr><th scope="row">Violentmonkey storage</th><td>Keep imported answers, caches, and tracked state locally in the script manager.</td></tr>
+        </tbody></table><p>The script does not submit answers, send room actions, or retain game authentication tokens. Review <a href="https://github.com/EleChon-pixel/krill_bot/blob/main/krill_bot.user.js">the source</a> for the exact grants and matching sites. This website adds no analytics scripts or tracking cookies; GitHub hosts the site and download.</p></section>
+        <section id="troubleshooting"><h2>When the panel or answers are missing</h2><h3>The panel does not appear</h3><p>Check that Violentmonkey and the script are enabled and allowed to run on Krillion. Fully reload the tab after installation. Open Puffer Party; the script’s Party adapter is not a promise of support for every game mode.</p><h3>The panel appears but tracking stays empty</h3><p>Open <strong>Diagnostics</strong> and check the feed indicator and confirmation evidence. An installed hook does not establish that game traffic was captured. Missing patch history waits for a full snapshot rather than guessing; a full reload can reconnect the game.</p><h3>A suggested answer gets rejected</h3><p>Historical scores can differ in Party. The literal word parser supports only some restrictions, and dictionary or model suggestions may fail game validation. Try another candidate; no score or acceptance is guaranteed.</p><h3>AI suggestions do not load</h3><p>Archive and dictionary suggestions still work. If you want generation, follow the <a href="../local-ai/">Ollama and Qwen3 guide</a>.</p><h3>Report a problem</h3><p>The regression suite is not evidence of a verified live Violentmonkey session. Browser injection and game updates can affect behavior. <a href="https://github.com/EleChon-pixel/krill_bot/issues">Open an issue</a> with your script version, browser, Violentmonkey version, and a redacted example. Do not include player keys, authentication tokens, private chat, or room invite links.</p></section>
+        <section id="remove"><h2>Disable or remove</h2><p>Disable the script in Violentmonkey, then fully reload the game to remove its hooks and panel from that tab. To remove it completely, delete the script in the manager after exporting any stored answers you want to preserve.</p></section>
+        <a class="next-guide" href="../local-ai/"><span>Optional next step</span>Add local AI with Ollama and Qwen3 →</a>
+      </div>
+    </div>
+  </main>
+  <footer class="wrap footer"><p>Krill Bot · independent, open source, MIT licensed.<br>Unaffiliated with Krillion or Violentmonkey.</p><nav aria-label="Footer"><a href="../">Home</a><a href="https://github.com/EleChon-pixel/krill_bot">Source</a><a href="https://github.com/EleChon-pixel/krill_bot/issues">Report an issue</a></nav></footer>
+</body>
+</html>

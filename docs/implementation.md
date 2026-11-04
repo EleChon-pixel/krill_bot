@@ -1,4 +1,6 @@
-# krill_bot 8.1.1
+# Krill Bot 8.1.2
+
+Version 8.1.2 adds public Krillion Puffer Party naming, direct install/update URLs, and a GitHub Pages landing page with installation and optional local-AI guides. The userscript keeps `@name krill_bot` and `@namespace krill_bot.local` so existing managers can recognize its identity. Only metadata and the visible panel heading change in the distributed script; answer generation and tracking behavior are unchanged. See [website operations](website.md).
 
 The installable userscript is `krill_bot.user.js`. No build step or extra JavaScript packages are needed.
 

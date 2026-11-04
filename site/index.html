@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Krill Bot — Krillion Puffer Party Cheat &amp; Answer Helper</title>
+  <meta name="description" content="Free, open-source Krillion Puffer Party userscript with historical answers, word suggestions and optional local AI. Install with Violentmonkey. Manual submit.">
+  <link rel="canonical" href="https://elechon-pixel.github.io/krill_bot/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Krill Bot">
+  <meta property="og:title" content="Krill Bot — Krillion Puffer Party Cheat &amp; Answer Helper">
+  <meta property="og:description" content="The fish brought an 8B model to a trivia game. Historical answers, word suggestions and optional local AI. You still submit every answer.">
+  <meta property="og:url" content="https://elechon-pixel.github.io/krill_bot/">
+  <meta property="og:image" content="https://elechon-pixel.github.io/krill_bot/assets/social.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Krill Bot: Krillion Puffer Party answer helper. Historical answers, word suggestions, optional local AI. Manual submit.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Krill Bot — Krillion Puffer Party Answer Helper">
+  <meta name="twitter:description" content="Free, open-source userscript. Historical answers, word suggestions, optional local AI. Manual submit.">
+  <meta name="twitter:image" content="https://elechon-pixel.github.io/krill_bot/assets/social.png">
+  <meta name="twitter:image:alt" content="Krill Bot: Krillion Puffer Party answer helper with optional local AI and manual submit.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="wrap header">
+    <a class="brand" href="./" aria-current="page"><img src="assets/favicon.svg" width="36" height="36" alt="">krill bot</a>
+    <nav aria-label="Main navigation"><a href="install/">Installation</a><a href="local-ai/">Local AI</a><a href="https://github.com/EleChon-pixel/krill_bot">GitHub ↗</a></nav>
+  </header>
+  <main id="main">
+    <section class="wrap hero" aria-labelledby="hero-title">
+      <div>
+        <p class="eyebrow">Krillion Puffer Party · answer helper</p>
+        <h1 id="hero-title">A Krillion<br>cheat. <em>With<br>receipts.</em></h1>
+        <p class="intro">Krill Bot brings historical answers, word suggestions, and optional local AI into Krillion Puffer Party. You still submit every answer. We had to leave one skill check.</p>
+        <div class="actions"><a class="button" href="https://raw.githubusercontent.com/EleChon-pixel/krill_bot/main/krill_bot.user.js">Install userscript <span aria-hidden="true">↗</span></a><a class="button secondary" href="install/">Setup guide</a></div>
+        <p class="small">Requires <a href="https://violentmonkey.github.io/get-it/">Violentmonkey</a>. Free &amp; open source. Start without AI.</p>
+      </div>
+      <figure class="panel-stage" aria-label="Illustration of the answer helper panel">
+        <div class="panel">
+          <div class="panel-title"><span>krill bot</span><span>INTERFACE ILLUSTRATION</span></div>
+          <p class="panel-note">Sample prompt · not connected to the game</p>
+          <p class="panel-prompt">Name a word ending in “way”</p>
+          <div class="panel-answer"><span>1</span><b>causeway</b><small>Dictionary suggestion</small></div>
+          <div class="panel-answer" style="--answer-color:#4de3ff"><span>2</span><b>gangway</b><small>Dictionary suggestion</small></div>
+          <div class="panel-answer" style="--answer-color:#ffd166"><span>3</span><b>fairway</b><small>Dictionary suggestion</small></div>
+          <p class="panel-note">Click or Alt+1–5 fills the input.<br>You choose when to submit.</p>
+          <div class="panel-tracking">Answer tracking<br><span class="panel-chip">✓ Accepted</span><p class="panel-note">Pending and rejected answers stay separate.</p></div>
+        </div>
+        <figcaption class="caption">Illustrated panel with sample content, not a live-game screenshot. Colours are illustrative; these words have no claimed score or acceptance.</figcaption>
+      </figure>
+    </section>
+    <div class="wrap strip" aria-label="Project facts"><span>Manual submit</span><span>Optional local AI</span><span>MIT licensed</span><span>No cloud model required</span></div>
+    <section class="wrap section" aria-labelledby="features-title">
+      <div class="section-heading"><h2 id="features-title">Three ways to<br>borrow a brain cell.</h2><p>This Krillion cheat is a browser userscript, with a panel beside the game. It helps you find candidates; the game decides whether an answer is accepted.</p></div>
+      <div class="features">
+        <article><span class="feature-number">01 / FISH WITH RECEIPTS</span><h3>Historical answers.</h3><p>Look through a public Daily Dive dataset, answers from guide pages you visit, and official answers you save yourself. Historical scores can differ in Party.</p></article>
+        <article><span class="feature-number">02 / SPELLING OUTSOURCED</span><h3>Local word lookup.</h3><p>Get dictionary suggestions for supported prefix, suffix, containment, and numeric-length rules. Useful when your entire vocabulary has left the aquarium.</p></article>
+        <article><span class="feature-number">03 / DEEPLY UNNECESSARY</span><h3>Optional local AI.</h3><p>Connect Ollama and Qwen3 8B for generated suggestions. No cloud model required. Archive and dictionary suggestions work without Ollama.</p></article>
+      </div>
+    </section>
+    <section class="wrap section setup" aria-labelledby="setup-title">
+      <div><p class="eyebrow">Get the panel</p><h2 id="setup-title">Less copying.<br>More fish.</h2><p class="intro">Install the userscript in a browser with Violentmonkey. Leave AI setup for later.</p><a href="install/">Full installation &amp; troubleshooting guide →</a></div>
+      <ol class="steps">
+        <li><h3>Install Violentmonkey.</h3><p>Get the extension for your browser from the <a href="https://violentmonkey.github.io/get-it/">official download page</a>.</p></li>
+        <li><h3>Open the script. Review. Install.</h3><p>The <a href="https://raw.githubusercontent.com/EleChon-pixel/krill_bot/main/krill_bot.user.js">direct userscript link</a> should open the manager’s installation screen. If it displays code, use the <a href="install/#fallback">manual fallback</a>.</p></li>
+        <li><h3>Reload Krillion and open Party.</h3><p>Fully reload the tab so the script can observe new game connections. Choose a suggestion to fill your answer, then submit it yourself.</p></li>
+      </ol>
+    </section>
+    <section class="wrap section" aria-labelledby="guides-title">
+      <div class="section-heading"><h2 id="guides-title">A little help<br>with the helper.</h2><p>Start with the browser setup. Add the 8B brain cell if you want generated suggestions.</p></div>
+      <div class="guides">
+        <a class="guide" href="install/"><span>START HERE ↗</span><h3>Install the Krillion userscript</h3><p>Violentmonkey setup, permissions, updates, and what to check when the panel is missing.</p></a>
+        <a class="guide" href="local-ai/"><span>OPTIONAL EXTRA ↗</span><h3>Krillion with Ollama &amp; Qwen3</h3><p>Run the model locally, warm it up, and understand what gets sent to your computer.</p></a>
+      </div>
+    </section>
+    <section class="wrap section faq" aria-labelledby="faq-title">
+      <div><p class="eyebrow">Reasonable questions</p><h2 id="faq-title">Yes, it’s<br>overengineered.</h2></div>
+      <div>
+        <details><summary>What is Krill Bot?</summary><p>A free, open-source Krillion Puffer Party cheat and answer helper, installed as a Violentmonkey userscript. It offers candidate answers and tracks accepted, pending, and rejected answers across category changes.</p></details>
+        <details><summary>Do I need Ollama or a GPU?</summary><p>Ollama is optional. Archive and dictionary suggestions work without a model or GPU. Running Qwen3 8B locally needs enough memory for the model; speed depends on your hardware. See the <a href="local-ai/">local AI guide</a>.</p></details>
+        <details><summary>Does it automatically play or guarantee scores?</summary><p>No. Selecting a suggestion fills the input; you submit manually. Historical scores are not predictions of current Party scores. Dictionary and AI answers may be rejected.</p></details>
+        <details><summary>Where does my data go?</summary><p>The script downloads public word-list and archive data from GitHub. When generation is needed, category and candidate text is sent to local Ollama at 127.0.0.1. Imported answers and caches stay in Violentmonkey storage. Read the <a href="install/#permissions">permission details</a>.</p></details>
+        <details><summary>Has it been verified in a live game?</summary><p>The repository includes regression tests against observed client message shapes. These do not establish a verified live Violentmonkey session. Browser injection and game changes can affect compatibility. Use Diagnostics to check actual feed capture.</p></details>
+        <details><summary>Is this an official Krillion tool?</summary><p>No. This independent project is unaffiliated with Krillion, Violentmonkey, Ollama, or Qwen. Report script issues in the <a href="https://github.com/EleChon-pixel/krill_bot/issues">project issue tracker</a>.</p></details>
+      </div>
+    </section>
+    <section class="wrap section" aria-labelledby="last-title"><p class="eyebrow">Your brain may now leave the aquarium</p><h2 id="last-title">Bring a helper.<br>Keep the submit button.</h2><div class="actions"><a class="button" href="https://raw.githubusercontent.com/EleChon-pixel/krill_bot/main/krill_bot.user.js">Install userscript ↗</a><a href="install/">Read the setup guide</a></div><p class="small">Violentmonkey required. Predictions and generated suggestions can be wrong.</p></section>
+  </main>
+  <footer class="wrap footer"><p>Krill Bot · independent, open source, MIT licensed.<br>Unaffiliated with Krillion or Violentmonkey. No analytics scripts or tracking cookies are added by this website.</p><nav aria-label="Footer"><a href="https://github.com/EleChon-pixel/krill_bot">Source</a><a href="https://github.com/EleChon-pixel/krill_bot/issues">Report an issue</a></nav></footer>
+</body>
+</html>

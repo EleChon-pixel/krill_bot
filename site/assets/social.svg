@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#08272d"/>
+  <path d="M55 94h1090M55 555h1090" stroke="#406065"/>
+  <g font-family="DejaVu Sans, sans-serif">
+    <text x="60" y="62" fill="#d8f79b" font-size="24" font-weight="bold">krill bot</text>
+    <text x="1140" y="60" fill="#b9cdc7" font-size="18" text-anchor="end">FREE · OPEN SOURCE · MANUAL SUBMIT</text>
+    <text x="60" y="154" fill="#d8f79b" font-size="19" letter-spacing="2">KRILLION PUFFER PARTY</text>
+    <text x="55" y="257" fill="#f1f2df" font-size="79" font-weight="bold">A cheat.</text>
+    <text x="55" y="351" fill="#d8f79b" font-size="79" font-weight="bold">With receipts.</text>
+    <text x="60" y="421" fill="#b9cdc7" font-size="26">Historical answers. Word suggestions.</text>
+    <text x="60" y="462" fill="#b9cdc7" font-size="26">Optional local AI. You still press submit.</text>
+    <text x="60" y="597" fill="#f1f2df" font-size="21">elechon-pixel.github.io/krill_bot</text>
+    <text x="1140" y="597" fill="#b9cdc7" font-size="18" text-anchor="end">Independent · Unaffiliated with Krillion</text>
+  </g>
+  <g transform="translate(935 307)">
+    <circle r="145" fill="#10373d" stroke="#406065"/>
+    <circle r="115" fill="none" stroke="#406065"/>
+    <path d="M85-12l63-35v88L85 12" fill="#80d9b2"/>
+    <path d="M-70-76l-16-24m57-4l-5-26m49 25l7-26m45 49l23-20M-83 68l-20 19m74 15l-6 26m51-22l11 25m46-57l24 18" stroke="#d8f79b" stroke-width="8" stroke-linecap="round"/>
+    <circle r="99" fill="#d8f79b"/>
+    <ellipse cx="-33" cy="-19" rx="12" ry="15" fill="#08272d"/>
+    <ellipse cx="30" cy="-19" rx="12" ry="15" fill="#08272d"/>
+    <path d="M-25 29q26 25 51-5" fill="none" stroke="#08272d" stroke-width="9" stroke-linecap="round"/>
+    <g fill="#9ab969"><circle cx="-68" cy="24" r="6"/><circle cx="66" cy="20" r="6"/><circle cx="-43" cy="-63" r="5"/><circle cx="48" cy="-63" r="5"/></g>
+  </g>
+</svg>
